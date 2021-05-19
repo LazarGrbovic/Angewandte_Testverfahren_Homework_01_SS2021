@@ -155,11 +155,20 @@ namespace StringCalculator.Test
 
     [TestClass]
     public class Task_6_Tests
-    {
-        [TestMethod]
-        public void Add_Method_Should_Return_Zero_If_Number_Is_Bigger_Than_1000()
+    { 
+        [DataTestMethod]
+        [DataRow("1001")]
+        [DataRow("2001")]
+        [DataRow("3001")]
+        [DataRow("4001")]
+        [DataRow("5001")]
+        [DataRow("6001")]
+        [DataRow("7001")]
+        [DataRow("8001")]
+        [DataRow("9001")]        
+        public void Add_Method_Should_Return_Zero_If_Number_Is_Bigger_Than_1000(string input)
         {
-            Assert.AreEqual(StringCalculator.Add("1001"), 0);
+            Assert.AreEqual(StringCalculator.Add(input), 0);
         }
     }
 }
