@@ -1,5 +1,6 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
+using System.Collections.Generic;
 
 namespace StringCalculator.Test
 {
@@ -86,6 +87,20 @@ namespace StringCalculator.Test
         [DataRow("-10")]
         [DataRow("-100")]
         [DataRow("-1000")]
+        [ExpectedException (typeof(NegativeNumberException))]
+        public void Add_Method_Throws_An_Exception_For_A_Negative_Number(string input)
+        {
+            StringCalculator.Add(input);
+        }
+        
+        [DataTestMethod]                
+        [DataRow("-6")]
+        [DataRow("-3")]
+        [DataRow("-2")]
+        [DataRow("-1")]
+        [DataRow("-10")]
+        [DataRow("-100")]
+        [DataRow("-1000")]
         public void Add_Method_Throws_An_Exception_For_A_Negative_Number_And_Returns_It(string input)
         {
             var caughtNum = 0;
@@ -103,11 +118,38 @@ namespace StringCalculator.Test
             Assert.AreEqual(caughtNum, int.Parse(input));
         }
 
+        [DataTestMethod]                        
+        [DataRow("-3,-3")]
+        [DataRow("-2,-2")]
+        [DataRow("-1,-1")]
+        [DataRow("-10,-10")]
+        [DataRow("-100,-100")]
+        [DataRow("-1000,-1000")]
+        [ExpectedException (typeof(NegativeNumbersException))]        
+        public void Add_Method_Throws_An_Exception_For_Multiple_Negative_Numbers(string input)
+        {
+            StringCalculator.Add(input);
+        }
+
         [TestMethod]
-        [ExpectedException (typeof (NegativeNumbersException))]
         public void Add_Method_Throws_An_Exception_For_Multiple_Negative_Numbers_And_Returns_Them()
         {
-            StringCalculator.Add("-1,-2,-3");            
+            var negativeNumbers = new List<int>();
+            var actualNegativeNumbers = new List<int>() {-1, -2, -3};
+            try
+            {
+                StringCalculator.Add("-1,-2,-3");
+                Assert.Fail();
+            }
+            catch (NegativeNumbersException e)
+            {                       
+                if (e.Numbers.Count != actualNegativeNumbers.Count) Assert.Fail();
+                negativeNumbers = e.Numbers;             
+                for (int i = 0; i < negativeNumbers.Count; i++)
+                {
+                    if (negativeNumbers[i] != actualNegativeNumbers[i]) Assert.Fail();       
+                }
+            }
         }
     }
 }
