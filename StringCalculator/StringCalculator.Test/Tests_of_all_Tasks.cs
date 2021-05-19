@@ -180,4 +180,14 @@ namespace StringCalculator.Test
             Assert.AreEqual(StringCalculator.Add(input), 2);
         }
     }
+
+    [TestClass]
+    public class Task_7_Tests
+    {
+        [TestMethod]
+        public void Add_Method_Supports_Delimiters_Of_Any_Length()
+        {
+            Assert.AreEqual(StringCalculator.Add("//[***]\n1***2***3"), 6);
+        }
+    }
 }
