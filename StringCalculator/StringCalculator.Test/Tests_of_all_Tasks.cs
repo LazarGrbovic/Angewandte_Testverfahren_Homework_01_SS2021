@@ -212,7 +212,7 @@ namespace StringCalculator.Test
         [TestMethod]
         public void Add_Method_Supports_Multiple_Delimiters()
         {
-            Assert.AreEqual(StringCalculator.Add("//[**][&&]\n1**2&&**3"), 6);
+            Assert.AreEqual(StringCalculator.Add("//[**][%%]\n1**2%%3"), 6);
         }
     }
 }
