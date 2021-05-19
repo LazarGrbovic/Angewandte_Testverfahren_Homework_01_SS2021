@@ -202,7 +202,17 @@ namespace StringCalculator.Test
             Assert.AreEqual(StringCalculator.Add("//[*][%]\n1*2%3"), 6);    
             Assert.AreEqual(StringCalculator.Add("//[*][%][!]\n2*2%1!1"), 6);            
             Assert.AreEqual(StringCalculator.Add("//[*][%][!]\n1*1%1!1!1!1"), 6);
-            Assert.AreEqual(StringCalculator.Add("//[*][%][!]\n2*1%1*1%1"), 6);
+            Assert.AreEqual(StringCalculator.Add("//[*][%][!]\n2*1%1*1%1"), 6);            
+        }
+    }
+
+    [TestClass]
+    public class Task_9_Tests
+    {
+        [TestMethod]
+        public void Add_Method_Supports_Multiple_Delimiters()
+        {
+            Assert.AreEqual(StringCalculator.Add("//[**][&&]\n1**2&&**3"), 6);
         }
     }
 }
