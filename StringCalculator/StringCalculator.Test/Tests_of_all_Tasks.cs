@@ -78,14 +78,21 @@ namespace StringCalculator.Test
     [TestClass]  
     public class Task_5_Tests
     {
-        [TestMethod]        
-        public void Add_Method_Throws_An_Exception_For_A_Negative_Number_And_Returns_It()
+        [DataTestMethod]                
+        [DataRow("-6")]
+        [DataRow("-3")]
+        [DataRow("-2")]
+        [DataRow("-1")]
+        [DataRow("-10")]
+        [DataRow("-100")]
+        [DataRow("-1000")]
+        public void Add_Method_Throws_An_Exception_For_A_Negative_Number_And_Returns_It(string input)
         {
             var caughtNum = 0;
 
             try
             {
-                StringCalculator.Add("-1");
+                StringCalculator.Add(input);
                 Assert.Fail();
             }
             catch (NegativeNumberException e)
@@ -93,7 +100,7 @@ namespace StringCalculator.Test
                 caughtNum = e.Number;                    
             }
 
-            Assert.AreEqual(caughtNum, -1);
+            Assert.AreEqual(caughtNum, int.Parse(input));
         }
     }
 }
