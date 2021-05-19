@@ -46,13 +46,17 @@ namespace StringCalculator.Test
         }
     }
 
-    [TestClass]
+    [TestClass]    
     public class Task_3_Tests
     {
-        [TestMethod]
-        public void Add_Method_Handles_New_Lines_Between_Numbers()
+        [DataTestMethod]
+        [DataRow("6")]
+        [DataRow("3\n3")]
+        [DataRow("2\n2\n2")]
+        [DataRow("1\n1\n1\n1\n1\n1")]
+        public void Add_Method_Handles_New_Lines_Between_Numbers(string input)
         {
-            Assert.AreEqual(StringCalculator.Add("1\n2,3"), 6);
+            Assert.AreEqual(StringCalculator.Add(input), 6);
         }
     }
 }
