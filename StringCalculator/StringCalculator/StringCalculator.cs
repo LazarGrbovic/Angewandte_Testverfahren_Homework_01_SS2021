@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace StringCalculator
 {
@@ -34,5 +35,30 @@ namespace StringCalculator
             foreach (var num in nums) sum += int.Parse(num);
             return sum;
         }
+    }
+
+    public class NegativeNumberException : Exception
+    {
+        public int Number { get; set; }
+        public NegativeNumberException(int number)
+        {
+            if (number > 0) throw new Exception("Can not create an Exception with a Positive Number");
+            this.Number = number;
+        }
+
+        public override string Message => "Negative Number is not allowed";
+    }
+
+    public class NegativeNumbersException : Exception
+    {
+        public List<int> Numbers { get; set; }
+        public NegativeNumbersException(List<int> negativeNumbers)
+        {
+            if (negativeNumbers.Count == 0) throw new Exception("Can not create an Exception with an empt list");
+            foreach (var num in negativeNumbers) if (num > 0) throw new Exception("Can not create an Exception with a Positive Number");
+            this.Numbers = negativeNumbers;
+        }
+
+        public override string Message => "Negative Numbers are not allowed";
     }
 }
