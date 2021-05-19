@@ -192,4 +192,14 @@ namespace StringCalculator.Test
             Assert.AreEqual(StringCalculator.Add("//[||||]\n1||||2||||3"), 6);            
         }
     }
+
+    [TestClass]
+    public class Task_8_Tests
+    {
+        [TestMethod]
+        public void Add_Method_Supports_Multiple_Single_Character_Delimiters()
+        {
+            Assert.AreEqual(StringCalculator.Add("//[*][%]\n1*2%3"), 6);                
+        }
+    }
 }
