@@ -102,5 +102,12 @@ namespace StringCalculator.Test
 
             Assert.AreEqual(caughtNum, int.Parse(input));
         }
+
+        [TestMethod]
+        [ExpectedException (typeof (NegativeNumbersException))]
+        public void Add_Method_Throws_An_Exception_For_Multiple_Negative_Numbers_And_Returns_Them()
+        {
+            StringCalculator.Add("-1,-2,-3");            
+        }
     }
 }
