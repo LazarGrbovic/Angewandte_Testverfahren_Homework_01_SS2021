@@ -22,5 +22,11 @@ namespace StringCalculator.Test
         {
             Assert.AreEqual(StringCalculator.Add(number.ToString()), number);
         }
+
+        [TestMethod]
+        public void Add_Method_Returns_Sum_Of_Two_Comma_Separated_Numbers()
+        {
+            Assert.AreEqual(StringCalculator.Add("1,1"), 2);
+        }
     }
 }
