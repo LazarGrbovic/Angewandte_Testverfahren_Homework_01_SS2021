@@ -170,5 +170,11 @@ namespace StringCalculator.Test
         {
             Assert.AreEqual(StringCalculator.Add(input), 0);
         }
+
+        [TestMethod]
+        public void Add_Method_Ignores_Numbers_Greater_1000()
+        {
+            Assert.AreEqual(StringCalculator.Add("1001,2"), 2);
+        }
     }
 }
