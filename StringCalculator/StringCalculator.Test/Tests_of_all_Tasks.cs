@@ -1,4 +1,5 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System;
 
 namespace StringCalculator.Test
 {
@@ -71,6 +72,28 @@ namespace StringCalculator.Test
         public void Add_Method_Supports_Different_Delimiters(string input)
         {
             Assert.AreEqual(StringCalculator.Add(input), 6);
+        }
+    }
+
+    [TestClass]
+    public class Task_5_Tests
+    {
+        [TestMethod]
+        [ExpectedException (typeof(Exception), "No Negative Numbers Allowed")]
+        public void Add_Method_Throws_An_Exception_For_A_Negative_Number_And_Returns_It()
+        {
+            
+            try
+            {
+                StringCalculator.Add("-1");
+                Assert.Fail();
+            }
+            catch (System.Exception)
+            {
+                                
+            }
+
+
         }
     }
 }
