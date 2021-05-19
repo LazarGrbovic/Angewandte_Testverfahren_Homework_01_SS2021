@@ -7,8 +7,7 @@ namespace StringCalculator
     {
         public static int Add(string numbers)
         {
-            if(string.IsNullOrEmpty(numbers)) return 0;                
-            else if (numbers == "1001,2") return 2;                 
+            if(string.IsNullOrEmpty(numbers)) return 0;                                    
             else if (numbers[0] == '/' && numbers[1] == '/') return HandleDifferentDelimiters(numbers);
             else if (numbers.Contains("\n")) return HandleNewLineNumbers(numbers);
             else if (numbers.Contains(',')) return HandleCommaSeparatedNumbers(numbers);
@@ -46,7 +45,11 @@ namespace StringCalculator
                     negativeNums.Add(int.Parse(num));
                 }
                 
-                if (!isThereANegative) sum += int.Parse(num);
+                if (!isThereANegative && int.Parse(num) < 1001) 
+                {
+                    sum += int.Parse(num);
+                }
+                
             }
             
             if (negativeNums.Count == 1) throw new NegativeNumberException (negativeNums[0]);
