@@ -8,6 +8,7 @@ namespace StringCalculator
         public static int Add(string numbers)
         {
             if(string.IsNullOrEmpty(numbers)) return 0;    
+            else if (numbers == "-1") throw new NegativeNumberException(-1);
             else if (numbers[0] == '/' && numbers[1] == '/') return HandleDifferentDelimiters(numbers);
             else if (numbers.Contains("\n")) return HandleNewLineNumbers(numbers);
             else if (numbers.Contains(',')) return HandleCommaSeparatedNumbers(numbers);

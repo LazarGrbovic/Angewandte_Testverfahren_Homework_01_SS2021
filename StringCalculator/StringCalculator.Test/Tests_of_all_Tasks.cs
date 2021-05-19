@@ -75,25 +75,25 @@ namespace StringCalculator.Test
         }
     }
 
-    [TestClass]
+    [TestClass]  
     public class Task_5_Tests
     {
-        [TestMethod]
-        [ExpectedException (typeof(Exception), "No Negative Numbers Allowed")]
+        [TestMethod]        
         public void Add_Method_Throws_An_Exception_For_A_Negative_Number_And_Returns_It()
         {
-            
+            var caughtNum = 0;
+
             try
             {
                 StringCalculator.Add("-1");
                 Assert.Fail();
             }
-            catch (System.Exception)
+            catch (NegativeNumberException e)
             {
-                                
+                caughtNum = e.Number;                    
             }
 
-
+            Assert.AreEqual(caughtNum, -1);
         }
     }
 }
