@@ -31,4 +31,14 @@ namespace StringCalculator.Test
             Assert.AreEqual(StringCalculator.Add("3,3"), 6);
         }
     }
+
+    [TestClass]
+    public class Task_2_Tests
+    {
+        [TestMethod]
+        public void Add_Method_Handles_Unknown_Amount_Of_Numbers()
+        {
+            Assert.AreEqual(StringCalculator.Add("1,2,3"), 6);
+        }
+    }
 }
