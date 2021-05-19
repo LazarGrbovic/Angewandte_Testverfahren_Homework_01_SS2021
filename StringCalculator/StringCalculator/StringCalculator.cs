@@ -7,22 +7,33 @@ namespace StringCalculator
     {
         public static int Add(string numbers)
         {
-            if(string.IsNullOrEmpty(numbers)) return 0;                                    
-            else if (numbers == "//[***]\n1***2***3") return 6;
+            // //[***]\n1***2***3
+            // //;\n1;2
+            if(string.IsNullOrEmpty(numbers)) return 0;                                               
             else if (numbers[0] == '/' && numbers[1] == '/') return HandleDifferentDelimiters(numbers);
             else if (numbers.Contains("\n")) return HandleNewLineNumbers(numbers);
-            else if (numbers.Contains(',')) return HandleCommaSeparatedNumbers(numbers);
+            else if (numbers.Contains(',')) return HandleCommaSeparatedNumbers(numbers);            
             else if (int.Parse(numbers) < 0) throw new NegativeNumberException(int.Parse(numbers));
-            else if (int.Parse(numbers) > 1000) return 0;     
+            else if (int.Parse(numbers) > 1000) return 0;                 
             else return int.Parse(numbers);
         }
 
-        private static int HandleDifferentDelimiters(string numbers)
+        private static int HandleDifferentDelimiters(string numbers)        
+        {                
+            if (numbers[2] != '[' && numbers[2] != ']') return HandleSingleCharacterDelimiter (numbers);                
+            var withoutStart = numbers.Remove(0,3);                
+            var splitString = withoutStart.Split(']');
+            var delimiter = splitString[0];
+            var numbersWithRefactoredDelimiter = splitString[1].Replace("\n", ",").Replace("\r","").Replace(delimiter, ",").Remove(0,1);
+            return HandleCommaSeparatedNumbers(numbersWithRefactoredDelimiter);
+        }
+
+        private static int HandleSingleCharacterDelimiter(string numbers)
         {
-                var delimiter = numbers[2];
-                var refactoredNumbers =  numbers.Remove(0,4);
-                var numbersWithRefactoredDelimiter = refactoredNumbers.Replace("\n", ",").Replace("\r","").Replace(delimiter, ',');
-                return HandleCommaSeparatedNumbers(numbersWithRefactoredDelimiter);
+            var delimiter = numbers[2];
+            var withoutStart = numbers.Remove(0,3);
+            var numbersWithRefactoredDelimiter = withoutStart.Replace("\n", ",").Replace("\r","").Replace(delimiter, ',').Remove(0,1);
+            return HandleCommaSeparatedNumbers(numbersWithRefactoredDelimiter);
         }
 
         private static int HandleNewLineNumbers(string numbers)
