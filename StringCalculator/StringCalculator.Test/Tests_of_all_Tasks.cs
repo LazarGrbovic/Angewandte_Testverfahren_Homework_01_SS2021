@@ -63,10 +63,14 @@ namespace StringCalculator.Test
     [TestClass]
     public class Task_4_Tests
     {
-        [TestMethod]
-        public void Add_Method_Supports_Different_Delimiters()
+        [DataTestMethod]
+        [DataRow("6")]
+        [DataRow("//;n3;3")]
+        [DataRow("//!n2!2!2")]
+        [DataRow("//|n1|1|1|1|1|1")]
+        public void Add_Method_Supports_Different_Delimiters(string input)
         {
-            Assert.AreEqual(StringCalculator.Add("//;n1;2"), 3);
+            Assert.AreEqual(StringCalculator.Add(input), 6);
         }
     }
 }
