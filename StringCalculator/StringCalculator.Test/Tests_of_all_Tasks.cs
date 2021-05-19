@@ -199,7 +199,10 @@ namespace StringCalculator.Test
         [TestMethod]
         public void Add_Method_Supports_Multiple_Single_Character_Delimiters()
         {
-            Assert.AreEqual(StringCalculator.Add("//[*][%]\n1*2%3"), 6);                
+            Assert.AreEqual(StringCalculator.Add("//[*][%]\n1*2%3"), 6);    
+            Assert.AreEqual(StringCalculator.Add("//[*][%][!]\n2*2%1!1"), 6);            
+            Assert.AreEqual(StringCalculator.Add("//[*][%][!]\n1*1%1!1!1!1"), 6);
+            Assert.AreEqual(StringCalculator.Add("//[*][%][!]\n2*1%1*1%1"), 6);
         }
     }
 }
