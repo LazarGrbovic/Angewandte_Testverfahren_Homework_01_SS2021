@@ -7,12 +7,12 @@ namespace StringCalculator
     {
         public static int Add(string numbers)
         {
-            if(string.IsNullOrEmpty(numbers)) return 0;
-            else if (numbers == "1001") return 0;                          
+            if(string.IsNullOrEmpty(numbers)) return 0;                                 
             else if (numbers[0] == '/' && numbers[1] == '/') return HandleDifferentDelimiters(numbers);
             else if (numbers.Contains("\n")) return HandleNewLineNumbers(numbers);
             else if (numbers.Contains(',')) return HandleCommaSeparatedNumbers(numbers);
             else if (int.Parse(numbers) < 0) throw new NegativeNumberException(int.Parse(numbers));
+            else if (int.Parse(numbers) > 1000) return 0;     
             else return int.Parse(numbers);
         }
 
