@@ -59,4 +59,14 @@ namespace StringCalculator.Test
             Assert.AreEqual(StringCalculator.Add(input), 6);
         }
     }
+
+    [TestClass]
+    public class Task_4_Tests
+    {
+        [TestMethod]
+        public void Add_Method_Supports_Different_Delimiters()
+        {
+            Assert.AreEqual(StringCalculator.Add("//;n1;2"), 3);
+        }
+    }
 }
