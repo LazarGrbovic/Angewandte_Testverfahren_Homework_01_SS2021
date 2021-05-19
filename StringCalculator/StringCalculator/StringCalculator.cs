@@ -7,9 +7,15 @@ namespace StringCalculator
         public static int Add(string numbers)
         {
             if(string.IsNullOrEmpty(numbers)) return 0;    
-            else if (numbers == "1\n2,3") return 6;        
+            else if (numbers.Contains("\n")) return HandleNewLineNumbers(numbers);
             else if (numbers.Contains(',')) return HandleCommaSeparatedNumbers(numbers);
             else return int.Parse(numbers);
+        }
+
+        private static int HandleNewLineNumbers(string numbers)
+        {
+            var refactoredNumbers = numbers.Replace("\n", ",").Replace("\r","");
+            return HandleCommaSeparatedNumbers(refactoredNumbers);
         }
 
         private static int HandleCommaSeparatedNumbers(string numbers)
