@@ -9,8 +9,7 @@ namespace StringCalculator
         {
             // //[***]\n1***2***3
             // //;\n1;2
-            if(string.IsNullOrEmpty(numbers)) return 0;       
-            else if (numbers == "//[*][%]\n1*2%3") return 6;                                        
+            if(string.IsNullOrEmpty(numbers)) return 0;                                                       
             else if (numbers[0] == '/' && numbers[1] == '/') return HandleDifferentDelimiters(numbers);
             else if (numbers.Contains("\n")) return HandleNewLineNumbers(numbers);
             else if (numbers.Contains(',')) return HandleCommaSeparatedNumbers(numbers);            
@@ -22,11 +21,26 @@ namespace StringCalculator
         private static int HandleDifferentDelimiters(string numbers)        
         {                
             if (numbers[2] != '[' && numbers[2] != ']') return HandleSingleCharacterDelimiter (numbers);                
+            
+            var index = numbers.IndexOf('[');
+            if (numbers.Remove(index, 1).Contains('[')) return HandleMultipleSingleCharacterDelimiters(numbers);
+            
             var withoutStart = numbers.Remove(0,3);                
             var splitString = withoutStart.Split(']');
             var delimiter = splitString[0];
             var numbersWithRefactoredDelimiter = splitString[1].Replace("\n", ",").Replace("\r","").Replace(delimiter, ",").Remove(0,1);
             return HandleCommaSeparatedNumbers(numbersWithRefactoredDelimiter);
+        }
+
+        private static int HandleMultipleSingleCharacterDelimiters(string numbers)
+        {
+            var refactoredNumbers = numbers.Replace("\n", "").Replace("\r","");   
+            var splitting = refactoredNumbers.Split('[', ']');
+            var numbersToSplit = splitting[splitting.Length - 1];
+            var delimiters = new List<string>();            
+            for (int i = 0; i < splitting.Length - 1; i++) { if (!string.IsNullOrEmpty(splitting[i])) delimiters.Add(splitting[i]); }
+            foreach (var item in delimiters) { numbersToSplit = numbersToSplit.Replace(item, ",");  }
+            return HandleCommaSeparatedNumbers(numbersToSplit);
         }
 
         private static int HandleSingleCharacterDelimiter(string numbers)
