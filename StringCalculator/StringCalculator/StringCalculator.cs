@@ -7,8 +7,7 @@ namespace StringCalculator
     {
         public static int Add(string numbers)
         {
-            if(string.IsNullOrEmpty(numbers)) return 0;    
-            else if (numbers == "-1,-2,-3") throw new NegativeNumbersException(new List<int>() {-1,-2,-3});            
+            if(string.IsNullOrEmpty(numbers)) return 0;                          
             else if (numbers[0] == '/' && numbers[1] == '/') return HandleDifferentDelimiters(numbers);
             else if (numbers.Contains("\n")) return HandleNewLineNumbers(numbers);
             else if (numbers.Contains(',')) return HandleCommaSeparatedNumbers(numbers);
@@ -34,7 +33,23 @@ namespace StringCalculator
         {
             var nums = numbers.Split(',');
             var sum = 0;
-            foreach (var num in nums) sum += int.Parse(num);
+            var isThereANegative = false;
+            var negativeNums = new List<int>();
+
+            foreach (var num in nums)
+            {
+                if (int.Parse(num) < 0)
+                {
+                    isThereANegative = true;
+                    negativeNums.Add(int.Parse(num));
+                }
+                
+                if (!isThereANegative) sum += int.Parse(num);
+            }
+            
+            if (negativeNums.Count == 1) throw new NegativeNumberException (negativeNums[0]);
+            if (negativeNums.Count > 1) throw new NegativeNumbersException (negativeNums);
+
             return sum;
         }
     }
