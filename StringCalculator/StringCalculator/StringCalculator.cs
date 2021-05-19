@@ -6,11 +6,8 @@ namespace StringCalculator
     public static class StringCalculator
     {
         public static int Add(string numbers)
-        {
-            // //[***]\n1***2***3
-            // //;\n1;2
-            if(string.IsNullOrEmpty(numbers)) return 0;            
-            else if (numbers == "//[**][%%]\n1**2%%3") return 6;                                          
+        {            
+            if(string.IsNullOrEmpty(numbers)) return 0;                        
             else if (numbers[0] == '/' && numbers[1] == '/') return HandleDifferentDelimiters(numbers);
             else if (numbers.Contains("\n")) return HandleNewLineNumbers(numbers);
             else if (numbers.Contains(',')) return HandleCommaSeparatedNumbers(numbers);            
