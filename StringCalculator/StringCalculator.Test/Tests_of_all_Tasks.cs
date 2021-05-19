@@ -152,4 +152,14 @@ namespace StringCalculator.Test
             }
         }
     }
+
+    [TestClass]
+    public class Task_6_Tests
+    {
+        [TestMethod]
+        public void Add_Method_Should_Return_Zero_If_Number_Is_Bigger_Than_1000()
+        {
+            Assert.AreEqual(StringCalculator.Add("1001"), 0);
+        }
+    }
 }
