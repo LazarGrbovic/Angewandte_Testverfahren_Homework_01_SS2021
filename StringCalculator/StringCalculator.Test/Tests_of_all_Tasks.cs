@@ -35,10 +35,14 @@ namespace StringCalculator.Test
     [TestClass]
     public class Task_2_Tests
     {
-        [TestMethod]
-        public void Add_Method_Handles_Unknown_Amount_Of_Numbers()
+        [DataTestMethod]
+        [DataRow("6")]
+        [DataRow("3,3")]
+        [DataRow("2,2,2")]
+        [DataRow("1,1,1,1,1,1")]
+        public void Add_Method_Handles_Unknown_Amount_Of_Numbers(string input)
         {
-            Assert.AreEqual(StringCalculator.Add("1,2,3"), 6);
+            Assert.AreEqual(StringCalculator.Add(input), 6);
         }
     }
 }
