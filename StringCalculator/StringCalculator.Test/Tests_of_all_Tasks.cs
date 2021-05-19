@@ -27,6 +27,8 @@ namespace StringCalculator.Test
         public void Add_Method_Returns_Sum_Of_Two_Comma_Separated_Numbers()
         {
             Assert.AreEqual(StringCalculator.Add("1,1"), 2);
+            Assert.AreEqual(StringCalculator.Add("2,2"), 4);
+            Assert.AreEqual(StringCalculator.Add("3,3"), 6);
         }
     }
 }
