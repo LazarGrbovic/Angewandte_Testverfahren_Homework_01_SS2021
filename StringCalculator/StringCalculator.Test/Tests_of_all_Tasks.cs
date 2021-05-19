@@ -171,10 +171,13 @@ namespace StringCalculator.Test
             Assert.AreEqual(StringCalculator.Add(input), 0);
         }
 
-        [TestMethod]
-        public void Add_Method_Ignores_Numbers_Greater_1000()
+        [DataTestMethod]
+        [DataRow("1001,2")]
+        [DataRow("1001\n2\n1001")]
+        [DataRow("//:\n1001:2:1001")]
+        public void Add_Method_Ignores_Numbers_Greater_1000(string input)
         {
-            Assert.AreEqual(StringCalculator.Add("1001,2"), 2);
+            Assert.AreEqual(StringCalculator.Add(input), 2);
         }
     }
 }
