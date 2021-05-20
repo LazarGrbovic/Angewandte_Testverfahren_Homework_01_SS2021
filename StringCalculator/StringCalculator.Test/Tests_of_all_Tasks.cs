@@ -67,9 +67,9 @@ namespace StringCalculator.Test
     {
         [DataTestMethod]
         [DataRow("6")]
-        [DataRow("//;n3;3")]
-        [DataRow("//!n2!2!2")]
-        [DataRow("//|n1|1|1|1|1|1")]
+        [DataRow("//;\n3;3")]
+        [DataRow("//!\n2!2!2")]
+        [DataRow("//|\n1|1|1|1|1|1")]
         public void Add_Method_Supports_Different_Delimiters(string input)
         {
             Assert.AreEqual(StringCalculator.Add(input), 6);
