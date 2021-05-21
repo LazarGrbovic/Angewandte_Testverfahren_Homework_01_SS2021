@@ -25,12 +25,13 @@ namespace StringCalculator.Test
             Assert.AreEqual(StringCalculator.Add(number.ToString()), number);
         }
 
-        [TestMethod]
-        public void Add_Method_Returns_Sum_Of_Two_Comma_Separated_Numbers()
+        [DataTestMethod]
+        [DataRow("1,1", 2)]
+        [DataRow("2,2", 4)]
+        [DataRow("3,3", 6)]
+        public void Add_Method_Returns_Sum_Of_Two_Comma_Separated_Numbers(string input, int expected)
         {
-            Assert.AreEqual(StringCalculator.Add("1,1"), 2);
-            Assert.AreEqual(StringCalculator.Add("2,2"), 4);
-            Assert.AreEqual(StringCalculator.Add("3,3"), 6);
+            Assert.AreEqual(StringCalculator.Add(input), expected);                      
         }
     }
 
@@ -38,13 +39,13 @@ namespace StringCalculator.Test
     public class Task_2_Tests
     {
         [DataTestMethod]
-        [DataRow("6")]
-        [DataRow("3,3")]
-        [DataRow("2,2,2")]
-        [DataRow("1,1,1,1,1,1")]
-        public void Add_Method_Handles_Unknown_Amount_Of_Numbers(string input)
+        [DataRow("6", 6)]
+        [DataRow("3,3", 6)]
+        [DataRow("2,2,2", 6)]
+        [DataRow("1,1,1,1,1,1", 6)]
+        public void Add_Method_Handles_Unknown_Amount_Of_Numbers(string input, int expected)
         {
-            Assert.AreEqual(StringCalculator.Add(input), 6);
+            Assert.AreEqual(StringCalculator.Add(input), expected);
         }
     }
 
@@ -52,13 +53,13 @@ namespace StringCalculator.Test
     public class Task_3_Tests
     {
         [DataTestMethod]
-        [DataRow("6")]
-        [DataRow("3\n3")]
-        [DataRow("2\n2\n2")]
-        [DataRow("1\n1\n1\n1\n1\n1")]
-        public void Add_Method_Handles_New_Lines_Between_Numbers(string input)
+        [DataRow("6", 6)]
+        [DataRow("3\n3", 6)]
+        [DataRow("2\n2\n2", 6)]
+        [DataRow("1\n1\n1\n1\n1\n1", 6)]
+        public void Add_Method_Handles_New_Lines_Between_Numbers(string input, int expected)
         {
-            Assert.AreEqual(StringCalculator.Add(input), 6);
+            Assert.AreEqual(StringCalculator.Add(input), expected);
         }
     }
 
@@ -66,13 +67,13 @@ namespace StringCalculator.Test
     public class Task_4_Tests
     {
         [DataTestMethod]
-        [DataRow("6")]
-        [DataRow("//;\n3;3")]
-        [DataRow("//!\n2!2!2")]
-        [DataRow("//|\n1|1|1|1|1|1")]
-        public void Add_Method_Supports_Different_Delimiters(string input)
+        [DataRow("6", 6)]
+        [DataRow("//;\n3;3", 6)]
+        [DataRow("//!\n2!2!2", 6)]
+        [DataRow("//|\n1|1|1|1|1|1", 6)]
+        public void Add_Method_Supports_Different_Delimiters(string input, int expected)
         {
-            Assert.AreEqual(StringCalculator.Add(input), 6);
+            Assert.AreEqual(StringCalculator.Add(input), expected);
         }
     }
 
@@ -131,14 +132,16 @@ namespace StringCalculator.Test
             StringCalculator.Add(input);
         }
 
-        [TestMethod]
-        public void Add_Method_Throws_An_Exception_For_Multiple_Negative_Numbers_And_Returns_Them()
+        [DataTestMethod]
+        [DataRow("-1,-2,-3", new int [] {-1,-2,-3})]
+        [DataRow("-1,-2,-3,1001", new int [] {-1,-2,-3})]
+        public void Add_Method_Throws_An_Exception_For_Multiple_Negative_Numbers_And_Returns_Them(string input, int [] expected)
         {
             var negativeNumbers = new List<int>();
-            var actualNegativeNumbers = new List<int>() {-1, -2, -3};
+            var actualNegativeNumbers = new List<int>(expected);
             try
             {
-                StringCalculator.Add("-1,-2,-3");
+                StringCalculator.Add(input);
                 Assert.Fail();
             }
             catch (NegativeNumbersException e)
@@ -172,48 +175,51 @@ namespace StringCalculator.Test
         }
 
         [DataTestMethod]
-        [DataRow("1001,2")]
-        [DataRow("1001\n2\n1001")]
-        [DataRow("//:\n1001:2:1001")]
-        public void Add_Method_Ignores_Numbers_Greater_1000(string input)
+        [DataRow("1001,2", 2)]
+        [DataRow("1001\n2\n1001", 2)]
+        [DataRow("//:\n1001:2:1001", 2)]
+        public void Add_Method_Ignores_Numbers_Greater_1000(string input, int expected)
         {
-            Assert.AreEqual(StringCalculator.Add(input), 2);
+            Assert.AreEqual(StringCalculator.Add(input), expected);
         }
     }
 
     [TestClass]
     public class Task_7_Tests
     {
-        [TestMethod]
-        public void Add_Method_Supports_Delimiters_Of_Any_Length()
+        [DataTestMethod]
+        [DataRow("//[***]\n1***2***3", 6)]
+        [DataRow("//[!!!!]\n1!!!!2!!!!3", 6)]
+        [DataRow("//[||||]\n1||||2||||3", 6)]
+        public void Add_Method_Supports_Delimiters_Of_Any_Length(string input, int expected)
         {
-            Assert.AreEqual(StringCalculator.Add("//[***]\n1***2***3"), 6);
-            Assert.AreEqual(StringCalculator.Add("//[!!!!]\n1!!!!2!!!!3"), 6);
-            Assert.AreEqual(StringCalculator.Add("//[||||]\n1||||2||||3"), 6);            
+            Assert.AreEqual(StringCalculator.Add(input), expected);            
         }
     }
 
     [TestClass]
     public class Task_8_Tests
     {
-        [TestMethod]
-        public void Add_Method_Supports_Multiple_Single_Character_Delimiters()
+        [DataTestMethod]
+        [DataRow("//[*][%]\n1*2%3", 6)]
+        [DataRow("//[*][%][!]\n2*2%1!1", 6)]
+        [DataRow("//[*][%][!]\n1*1%1!1!1!1", 6)]
+        [DataRow("//[*][%][!]\n2*1%1*1%1", 6)]
+        public void Add_Method_Supports_Multiple_Single_Character_Delimiters(string input, int expected)
         {
-            Assert.AreEqual(StringCalculator.Add("//[*][%]\n1*2%3"), 6);    
-            Assert.AreEqual(StringCalculator.Add("//[*][%][!]\n2*2%1!1"), 6);            
-            Assert.AreEqual(StringCalculator.Add("//[*][%][!]\n1*1%1!1!1!1"), 6);
-            Assert.AreEqual(StringCalculator.Add("//[*][%][!]\n2*1%1*1%1"), 6);            
+            Assert.AreEqual(StringCalculator.Add(input), expected);
         }
     }
 
     [TestClass]
     public class Task_9_Tests
     {
-        [TestMethod]
-        public void Add_Method_Supports_Multiple_Delimiters()
+        [DataTestMethod]
+        [DataRow("//[**][%%]\n1**2%%3", 6)]
+        [DataRow("//[*#*][%#%]\n1*#*2%#%3", 6)]
+        public void Add_Method_Supports_Multiple_Delimiters(string input, int expected)
         {
-            Assert.AreEqual(StringCalculator.Add("//[**][%%]\n1**2%%3"), 6);
-            Assert.AreEqual(StringCalculator.Add("//[*#*][%#%]\n1*#*2%#%3"), 6);
+            Assert.AreEqual(StringCalculator.Add(input), expected);
         }
     }
 }
